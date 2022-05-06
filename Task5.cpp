@@ -25,6 +25,7 @@ void Task5(){
 
     for(int i = 0; i <48; i++)
     {
+        cout << "Time is " << hour << ":00\n";
         cout << "Enter energy/temperature outside/movement outside/temperature inside/light inside\n";
         getline(cin, str);
         stringstream strm;
@@ -38,7 +39,7 @@ void Task5(){
         }
         else if (state & ENERGY && en == "off"){
             cout << "Energy off\n";
-            state &=ENERGY;
+            state &= ~ENERGY;
         }
         if(state & ENERGY) {
             int tmp = atoi(tempout.c_str());
@@ -48,14 +49,14 @@ void Task5(){
             }
             if (tmp > 5 && (state & WATER_PIPE_HEATING)) {
                 cout << "Water heating OFF\n";
-                state &= WATER_PIPE_HEATING;
+                state &= ~WATER_PIPE_HEATING;
             }
             if (move == "yes" && (hour > 16 || hour < 5) && !(state & LIGHTS_OUTSIDE)){
                 state |= LIGHTS_OUTSIDE;
                 cout << "Lights outside ON\n";
             }
-            else if(state & LIGHTS_OUTSIDE){
-                state &= LIGHTS_OUTSIDE;
+            else if(move == "no" && (state & LIGHTS_OUTSIDE)){
+                state &= ~LIGHTS_OUTSIDE;
                 cout << "Lights outside OFF\n";
             }
             tmp = atoi(tempin.c_str());
@@ -64,7 +65,7 @@ void Task5(){
                 state |= HEATERS;
             }
             if (tmp > 25 && (state & HEATERS)){
-                state &= HEATERS;
+                state &= ~HEATERS;
                 cout << "Heaters OFF\n";
             }
             if (tmp > 29 && !(state & CONDITIONER)){
@@ -72,7 +73,7 @@ void Task5(){
                 cout << "Conditioner ON\n";
             }
             if(tmp < 26 && (state & CONDITIONER)){
-                state &= CONDITIONER;
+                state &= ~CONDITIONER;
                 cout << "Conditioner OFF\n";
             }
             if (lightin == "on" && !(state & LIGHTS_INSIDE)){
@@ -80,15 +81,18 @@ void Task5(){
                 kel = 5000;
                 cout << "Lights inside ON\n";
             }
-            else if(state & LIGHTS_INSIDE) {
-                state &= LIGHTS_INSIDE;
+            else if(lightin == "off" && ( state & LIGHTS_INSIDE)) {
+                state &= ~LIGHTS_INSIDE;
                 cout << "Lights inside OFF\n";
             }
             if (state & LIGHTS_INSIDE ){
                 cout << "Light brightness " << kel << endl;
-                if (kel - 300 < 2700 && (hour >= 16 && hour <= 20)){ kel = 2700;}
-                else kel -= 300;
+                if (hour >= 16 && hour <= 20) {
+                    if (kel - 300 < 2700) { kel = 2700; }
+                    else kel -= 300;
+                }
             }
+            if (hour == 0) kel = 5000;
         }
         hour ++;
         if (hour > 23) hour = 0;
