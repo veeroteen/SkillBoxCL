@@ -4,24 +4,29 @@
 #include "Tasks.h"
 using namespace std;
 
-void Task2(){
+void swap (int *arr){
 
-string integer, div;
-double number,fract;
-
-cout << "Enter integer\n";
-cin >> integer;
-cout << "Enter fraction\n";
-cin >> div;
-
-fract = atoi(div.c_str());
-
-while(fract>1)
-{
-    fract = fract / 10;
+    for(int i =0 ; i < 5; i++){
+        int tmp = arr[i];
+        arr[i] = arr[9-i];
+        arr[9-i] = tmp;
+    }
 }
 
-number = atoi(integer.c_str()) + fract;
-cout << number << endl;
+void Task2(){
+    int ar[10] = {1,2,3,4,5,6,7,8,9,10};
+    int *arr = ar;
+    int y = 10;
+        for (int i = 0; i < 10; i++){
+            arr[i] = i;
+            cout << arr[i] << " ";
+        }
+    cout << endl;
 
+    swap(arr);
+
+    for (int i = 0; i < 10; i++){
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }

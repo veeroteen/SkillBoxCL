@@ -4,41 +4,44 @@
 #include "Tasks.h"
 using namespace std;
 
+bool substr(char* a, char* b)
+{
+    for(int i = 0; a[i] != '\0';i++)
+    {
+
+       if(a[i] == b[0])
+       {
+           for (int n = 1; b[n] != '\0' && a[i+n] !='\0'; n++ )
+           {
+               if(a[i+n] != b[n])
+               {
+                   break;
+               }
+               if(b[n+1] == '\0'){
+                   return true;
+               }
+           }
+
+       }
+    }
+
+
+
+
+}
+
+
+
 void Task3(){
 
+    char* a = "Hello world";
 
-    string str;
+    char* b = "wor";
 
-    cout << "Enter operation\n";
-    cin >> str;
+    char* c = "banana";
 
-    double a = atof(str.c_str());
 
-    for(int i = 0; i < str.length(); i++)
-    {
-        if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/')
-        {
-            str.erase(0,i);
-        }
-    }
-    char sign = str.substr(0,1)[0];
-    str.erase(0,1);
-    switch (sign)
-    {
-        case '+':
-            a = a + atof(str.c_str());
-            break;
-        case '-':
-            a = a - atof(str.c_str());
-            break;
-        case '/':
-            a = a / atof(str.c_str());
-            break;
-        case '*':
-            a = a * atof(str.c_str());
-            break;
+    std::cout << substr(a,b) << " " << substr(a,c);
 
-    }
-    cout << a << endl;
 
 }
