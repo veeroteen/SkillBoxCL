@@ -4,21 +4,31 @@
 #include "Tasks.h"
 using namespace std;
 
-void swap (int *a, int *b){
-    int c = *a;
-    *a = *b;
-    *b = c;
+void swapvec (vector <int> &a, int *b){
+
+    for (int i = 0; i < a.size(); i++)
+    {
+        int tmp = b[i];
+        b[i] = a[i];
+        a[i] = tmp;
+    }
+
 
 }
 
 void Task1(){
+    vector <int> a = {1,2,3,4};
+    int arr[] = {2,4,6,8};
+    int *b = arr;
 
-    int a = 10;
+    swapvec(a, b);
 
-    int b = 20;
+    for(int i = 0; i < 4; ++i) {
+        cout << a[i];
+    }
+    cout << std::endl;
 
-    swap(&a, &b);
-
-    cout << a << " " << b << endl;
-
+    for(int i = 0; i < 4; ++i) {
+        cout << b[i];
+    }
 }
