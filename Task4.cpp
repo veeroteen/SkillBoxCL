@@ -1,49 +1,26 @@
-#include <vector>
 #include <iostream>
 #include <string>
 #include "Tasks.h"
+#include <fstream>
 using namespace std;
 
-
-
-void rec(long long lg, int &ans)
-{
-        if(lg%10%2 == 0)
+void Task4(){
+    string path;
+    cout << "Enter Path to file\n";
+    cin >> path;
+    if(path.find(".png") != -1)
+    {
+        ifstream file(path,ios::binary );
+        string str;
+        file >> str;
+        if(str[0] == -119 && str[1] == 'P' && str[2] == 'N' && str[3] == 'G' )
         {
-            ans++;
+            cout << "It is PNG file\n";
         }
-        lg = lg/10;
-        if(lg == 0) return;
-        rec(lg,ans);
-}
 
-
-
-
-
-
-void evendigits(long long lg, int &ans)
-{
-    ans = 0;
-    while (lg != 0){
-        if(lg%10%2 == 0)
-        {
-            ans++;
-        }
-        lg = lg/10;
+    }
+    else{
+        cout << "It is not PNG file\n";
     }
 
-}
-
-
-
-void Task4(){
-
-    int ans = 0;
-
-    evendigits(9223372036854775806, ans);
-    cout << ans << endl;
-    ans = 0;
-    rec(9223372036854775806, ans);
-    cout << ans << endl;
 }

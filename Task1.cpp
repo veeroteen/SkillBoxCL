@@ -1,34 +1,30 @@
-#include <vector>
 #include <iostream>
 #include <string>
 #include "Tasks.h"
+#include <fstream>
 using namespace std;
-
-void swapvec (vector <int> &a, int *b){
-
-    for (int i = 0; i < a.size(); i++)
-    {
-        int tmp = b[i];
-        b[i] = a[i];
-        a[i] = tmp;
-    }
-
-
+void fill(){
+    ofstream file("words.txt");
+    file << "hello afgadga ahdfrafdhg adfg hello" << endl << "hello afdg adsfg adfg";
+    file.close();
 }
 
 void Task1(){
-    vector <int> a = {1,2,3,4};
-    int arr[] = {2,4,6,8};
-    int *b = arr;
+    fill();
+    ifstream file("words.txt");
 
-    swapvec(a, b);
-
-    for(int i = 0; i < 4; ++i) {
-        cout << a[i];
+    string word = "hello";
+    int i = 0;
+    while (true) {
+        string str;
+        file >> str;
+        if (str == ""){
+            break;
+        }
+        if (str == word) {
+            i++;
+        }
     }
-    cout << std::endl;
-
-    for(int i = 0; i < 4; ++i) {
-        cout << b[i];
-    }
+    file.close();
+    cout << i << endl;
 }
