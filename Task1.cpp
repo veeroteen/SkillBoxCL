@@ -1,30 +1,60 @@
+#include <vector>
 #include <iostream>
 #include <string>
 #include "Tasks.h"
 #include <fstream>
 using namespace std;
-void fill(){
-    ofstream file("words.txt");
-    file << "hello afgadga ahdfrafdhg adfg hello" << endl << "hello afdg adsfg adfg";
-    file.close();
-}
+
 
 void Task1(){
-    fill();
-    ifstream file("words.txt");
-
-    string word = "hello";
-    int i = 0;
-    while (true) {
-        string str;
-        file >> str;
-        if (str == ""){
+    string str,tmp;
+    while(true) {
+        ofstream file("employers.txt",ios::app);
+        cout << "Enter name\n";
+        cin >> str;
+        str = str + ' ';
+        cout << "Enter secondName\n";
+        cin >> tmp;
+        str = str + tmp + ' ';
+        cout << "Enter Payment\n";
+        int i;
+        cin >> i;
+        str = str + to_string(i) + ' ';
+        while(true) {
+            cout << "Enter day number\n";
+            cin >> tmp;
+            i = atoi(tmp.c_str());
+            if (i < 1 || i > 31) {
+                cout << "Incorrect\n";
+                continue;
+            }
             break;
         }
-        if (str == word) {
-            i++;
+        str = str + to_string(i) + '.';
+        while(true) {
+            cout << "Enter month number\n";
+            cin >> tmp;
+            i = atoi(tmp.c_str());
+            if (i < 1 || i > 12) {
+                cout << "Incorrect\n";
+                continue;
+            }
+            break;
         }
+        str = str + to_string(i) + '.';
+        while(true) {
+            cout << "Enter year\n";
+            cin >> tmp;
+            i = atoi(tmp.c_str());
+            if (i < 0 || i > 9999) {
+                cout << "Incorrect\n";
+                continue;
+            }
+            break;
+        }
+        str = str + to_string(i);
+        file << str << endl;
     }
-    file.close();
-    cout << i << endl;
+
 }
+

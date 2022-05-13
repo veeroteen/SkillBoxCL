@@ -5,56 +5,44 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
-struct Employee
-{
-string Name;
-string SecondName;
-int Payment;
-string date;
-};
-void start(){
-    ofstream file("employers.txt");
-    file << "Tom Hanks 35500 10.11.2020" << endl;
-    file << "Rebecca Williams 85000 1.1.2021" << endl;
-    file << "Sally Field 15600 15.8.2021" << endl;
-    file << "Michael Humphreys 29400 23.5.2020" << endl;
-    file << "Harold Herthum 74300 9.6.2019" << endl;
-    file << "George Kelly 45000 12.3.2018" << endl;
-    file << "Bob Penny 12500 13.5.2020" << endl;
-    file << "John Randall 23400 2.10.2020" << endl;
-    file << "Sam Anderson 6500 15.7.2020" << endl;
-    file << "Margo Moorer 12350 24.2.2019" << endl;
-    file.close();
+void fillRiver(){
+    ofstream river("river.txt",ios::app);
+    river << "sunfish" << endl;
+    river << "shad" << endl;
+    river << "carp" << endl;
+    river << "bass" << endl;
+    river << "bullhead" << endl;
+    river << "carp" << endl;
+    river << "walleye" << endl;
+    river << "catfish" << endl;
+    river << "carp" << endl;
 }
+
 void Task3(){
-    start();
-    ifstream file("employers.txt");
-    Employee max;
-    int sum = 0;
-    while(true) {
-        string str;
-        getline(file, str);
-        if(str == ""){
+    //fillRiver();
+    ifstream river("river.txt");
+    ofstream basket("basket.txt",ios::app);
+
+    cout << "Enter fish name\n";
+    string fish;
+    cin >> fish;
+    int count;
+    while(true)
+    {
+        string tmp;
+        river >> tmp;
+        if(tmp == "")
+        {
             break;
         }
-        stringstream buff;
-        buff << str;
-        Employee employe;
-        buff >> employe.Name;
-        buff >> employe.SecondName;
-        buff >> employe.Payment;
-        buff >> employe.date;
-        if(sum == 0){
-            max = employe;
+        if(tmp == fish){
+            count++;
+            basket << fish << endl;
         }
-        sum = sum + employe.Payment;
-        if(employe.Payment > max.Payment)
-        {
-            max = employe;
-        }
+
     }
 
-    cout << max.Name << " " << max.SecondName << " has the biggest payment\n";
-    cout << "Sum of payment - " << sum << endl;
+    cout << "You caught " << count << " fish\n";
+
 
 }
