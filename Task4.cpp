@@ -13,6 +13,23 @@ class ATM{
     int count = 1000;
 
 public:
+    void draw(){
+        int res = 0;
+        res = res + bill5000*5000;
+        res = res + bill2000*2000;
+        res = res + bill1000*1000;
+        res = res + bill500*500;
+        res = res + bill200*200;
+        res = res + bill100*100;
+
+        cout << "5000 * " << bill5000 << " = " << bill5000*5000 << endl;
+        cout << "2000 * " << bill2000 << " = " << bill2000*2000 << endl;
+        cout << "1000 * " << bill1000 << " = " << bill1000*1000 << endl;
+        cout << "500 * " << bill500 << " = " << bill500*500 << endl;
+        cout << "200 * " << bill200 << " = " << bill5000*200 << endl;
+        cout << "100 * " << bill100 << " = " << bill100*100 << endl;
+        cout << "Total: " << res << endl;
+    }
     void fill()
     {
         ifstream file("ATM.bin",ios::binary);
@@ -138,7 +155,8 @@ void Task4(){
     bb.inc();
 
     string str;
-    cout << "Enter command\n";
+    bb.draw();
+    cout << "+ or -\n";
     cin >> str;
 
     if(str == "+"){
