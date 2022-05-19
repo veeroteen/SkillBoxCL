@@ -2,41 +2,44 @@
 #include <string>
 //Площадь
 struct Area{
-int area;
+    double area;
 };
 //Комната
 struct Room: Area{
-    std::string type;
+    int type;
+};
+enum building_type
+{
+    house = 1,
+    garage = 2,
+    bathhouse = 4,
+    barn = 8
+};
+enum room_type
+{
+    living = 1,
+    children = 2,
+    bedroom = 4,
+    kitchen = 8,
+    bathroom = 16
 };
 //Этаж
 struct Lvl: Area{
-std::vector<Room> rooms;
-int height;
+    std::vector<Room> rooms;
+    int height;
 };
-struct House: Area{
+struct Building: Area{
     std::vector<Lvl> levels;
     bool pipe = false;
+    int type;
 };
-struct Garage: Area{
-bool have = false;
-};
-struct Barn: Area{
-    bool have = false;
-};
-struct Bathhouse: Area{
-    bool have = false;
-    bool pipe = false;
-};
+
 //Участок
-struct Region{
-    int count;
-    House house;
-    Garage garage;
-    Barn barn;
-    Bathhouse bathhouse;
+struct Region: Area{
+    std::vector <Building> buildings;
 };
 //Село
 struct Settlement{
-std::vector<Region> regions;
+    std::vector<Region> regions;
 };
 

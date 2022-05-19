@@ -3,6 +3,7 @@
 #include "Tasks.h"
 #include <fstream>
 #include "Structs.h"
+
 using namespace std;
 
 
@@ -26,12 +27,14 @@ void Task2(){
     {
         cout << "Enter builds count on " << i+1 << " region\n";
         cin >> count;
-        settlement.regions[i].count = count;
+        for (int j = 0; j < count; j++) {
+            settlement.regions[i].buildings.push_back(Building());
+        }
 
     }
 
     for(int i = 0;i < settlement.regions.size(); i++) {
-        int tmp = settlement.regions[i].count - 1;
+        int tmp = settlement.regions[i].buildings.size() -1;
         Region *reg = &settlement.regions[i];
         if (tmp > 0) {
             cout << "Does " << i+1 << " region have garage? yes/no \n";
@@ -39,9 +42,10 @@ void Task2(){
             cin >> str;
             if (str == "yes")
             {
-                reg->garage.have = true;
+                reg->buildings[tmp - 1].type |= garage;
+                tmp--;
             }
-            tmp--;
+            
         }
         if (tmp > 0) {
             cout << "Does " << i+1 << " region have barn? yes/no \n";
@@ -49,9 +53,10 @@ void Task2(){
             cin >> str;
             if (str == "yes")
             {
-                reg->barn.have = true;
+                reg->buildings[tmp - 1].type |= barn;
+                tmp--;
             }
-            tmp--;
+            
         }
         if (tmp > 0) {
             cout << "Does " << i+1 << " region have bathhouse? yes/no \n";
@@ -59,59 +64,71 @@ void Task2(){
             cin >> str;
             if (str == "yes")
             {
-                reg->bathhouse.have = true;
+                reg->buildings[tmp - 1].type |= bathhouse;
+                tmp--;
             }
-            tmp--;
+            
         }
+        reg->buildings[0].type |= house;
         string str;
-        if(reg->garage.have){
-            cout << "Enter garage area\n";
-            cin >> count;
-            reg->garage.area = count;
+        for (int j = 0; j < reg->buildings.size(); j++) {
+            if (reg->buildings[j].type & garage) {
+                cout << "Enter garage area\n";
+                cin >> count;
+                reg->buildings[j].area = count;
+                break;
+            }
         }
-        if(reg->barn.have){
-            cout << "Enter barn area\n";
-            cin >> count;
-            reg->barn.area = count;
+        for (int j = 0; j < reg->buildings.size(); j++) {
+            if (reg->buildings[j].type & barn) {
+                cout << "Enter barn area\n";
+                cin >> count;
+                reg->buildings[j].area = count;
+                break;
+            }
         }
-        if(reg->bathhouse.have){
-            cout << "Enter bathhouse area\n";
-            cin >> count;
-            reg->bathhouse.area = count;
-            cout << "Did bathhouse have pipe? yes/no\n";
-            cin >> str;
-            if (str == "yes"){
-                reg->bathhouse.pipe = true;
+        for (int j = 0; j < reg->buildings.size(); j++) {
+            bool kk = reg->buildings[j].type & bathhouse;
+            int h = reg->buildings[j].type;
+            if (reg->buildings[j].type & bathhouse) {
+                cout << "Enter bathhouse area\n";
+                cin >> count;
+                reg->buildings[j].area = count;
+                cout << "Did bathhouse have pipe? yes/no\n";
+                cin >> str;
+                if (str == "yes") {
+                    reg->buildings[j].pipe = true;
+                }
             }
         }
         cout << "Enter house area\n";
         cin >> count;
-        reg->house.area = count;
+        reg->buildings[0].area = count;
         cout << "Did house have pipe? yes/no\n";
 
         cin >> str;
         if (str == "yes"){
-            reg->house.pipe = true;
+            reg->buildings[0].pipe = true;
         }
         cout << "How many floors house has?\n";
         cin >> tmp;
         for(int n = 0; n < tmp; n++)
         {
             Lvl lvl;
-            reg->house.levels.push_back(lvl);
+            reg->buildings[0].levels.push_back(lvl);
         }
-        for(int n = 0; n < reg->house.levels.size(); n++){
+        for(int n = 0; n < reg->buildings[0].levels.size(); n++){
             cout << "Enter height of " << n+1 << " floor\n";
             cin >> tmp;
-            reg->house.levels[n].height = tmp;
+            reg->buildings[0].levels[n].height = tmp;
             cout << "Enter area of " << n+1 << " floor\n";
             cin >> tmp;
-            reg->house.levels[n].area = tmp;
+            reg->buildings[0].levels[n].area = tmp;
             cout << "How many room on " << n+1 << " floor\n";
             cin >> tmp;
             for(int j = 0; j < tmp; j++){
                 Room room;
-                reg->house.levels[n].rooms.push_back(room);
+                reg->buildings[0].levels[n].rooms.push_back(room);
             }
             if (tmp > 0) {
                 cout << "Does floor " << n+1 << " have kitchen? yes/no \n";
@@ -119,11 +136,11 @@ void Task2(){
                 cin >> str;
                 if (str == "yes")
                 {
-                    reg->house.levels[n].rooms[tmp-1].type = "kitchen";
+                    reg->buildings[0].levels[n].rooms[tmp-1].type |= kitchen;
                     cout << "Enter area of kitchen\n";
                     int area;
                     cin >> area;
-                    reg->house.levels[n].rooms[tmp-1].area = area;
+                    reg->buildings[0].levels[n].rooms[tmp-1].area = area;
                     tmp--;
                 }
             }
@@ -133,11 +150,11 @@ void Task2(){
                 cin >> str;
                 if (str == "yes")
                 {
-                    reg->house.levels[n].rooms[tmp-1].type = "living room";
+                    reg->buildings[0].levels[n].rooms[tmp-1].type  |= living;
                     cout << "Enter area of living room\n";
                     int area;
                     cin >> area;
-                    reg->house.levels[n].rooms[tmp-1].area = area;
+                    reg->buildings[0].levels[n].rooms[tmp-1].area = area;
                     tmp--;
                 }
             }
@@ -147,11 +164,11 @@ void Task2(){
                 cin >> str;
                 if (str == "yes")
                 {
-                    reg->house.levels[n].rooms[tmp-1].type = "children's room";
+                    reg->buildings[0].levels[n].rooms[tmp-1].type |= children;
                     cout << "Enter area of children's room\n";
                     int area;
                     cin >> area;
-                    reg->house.levels[n].rooms[tmp-1].area = area;
+                    reg->buildings[0].levels[n].rooms[tmp-1].area = area;
                     tmp--;
                 }
             }
@@ -161,11 +178,11 @@ void Task2(){
                 cin >> str;
                 if (str == "yes")
                 {
-                    reg->house.levels[n].rooms[tmp-1].type = "bathroom";
+                    reg->buildings[0].levels[n].rooms[tmp-1].type |= bathroom;
                     cout << "Enter area of bathroom\n";
                     int area;
                     cin >> area;
-                    reg->house.levels[n].rooms[tmp-1].area = area;
+                    reg->buildings[0].levels[n].rooms[tmp-1].area = area;
                     tmp--;
                 }
             }
@@ -175,11 +192,11 @@ void Task2(){
                 cin >> str;
                 if (str == "yes")
                 {
-                    reg->house.levels[n].rooms[tmp-1].type = "bedroom";
+                    reg->buildings[0].levels[n].rooms[tmp-1].type |= bedroom;
                     cout << "Enter area of bedroom\n";
                     int area;
                     cin >> area;
-                    reg->house.levels[n].rooms[tmp-1].area = area;
+                    reg->buildings[0].levels[n].rooms[tmp-1].area = area;
                     tmp--;
                 }
             }
