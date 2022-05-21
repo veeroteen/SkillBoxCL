@@ -2,113 +2,60 @@
 #include <iostream>
 #include <string>
 #include "Tasks.h"
-#include <fstream>
-#include <sstream>
+#include <map>
 using namespace std;
-
-struct Employee
-{
-    string Name;
-    string SecondName;
-    int Payment;
-    string date;
-};
-void add()
-{
-    string str,tmp;
-
-    ofstream file("employers.txt", ios::app);
-    cout << "Enter name\n";
-    cin >> str;
-    str = str + ' ';
-    cout << "Enter secondName\n";
-    cin >> tmp;
-    str = str + tmp + ' ';
-
-    int i;
-    while (true) {
-        cout << "Enter day number\n";
-        cin >> tmp;
-        i = atoi(tmp.c_str());
-        if (i < 1 || i > 31) {
-            cout << "Incorrect\n";
-            continue;
-        }
-        break;
-    }
-    str = str + to_string(i) + '.';
-    while (true) {
-        cout << "Enter month number\n";
-        cin >> tmp;
-        i = atoi(tmp.c_str());
-        if (i < 1 || i > 12) {
-            cout << "Incorrect\n";
-            continue;
-        }
-        break;
-    }
-    str = str + to_string(i) + '.';
-    while (true) {
-        cout << "Enter year\n";
-        cin >> tmp;
-        i = atoi(tmp.c_str());
-        if (i < 0 || i > 9999) {
-            cout << "Incorrect\n";
-            continue;
-        }
-        break;
-    }
-    str = str + to_string(i) + ' ';
-
-    cout << "Enter Payment\n";
-    cin >> i;
-    str = str + to_string(i);
-    file << str << endl;
-    file.close();
+void add(map<string,string>& phonebook,string key,string value) {
+    phonebook[key] = value;
 }
-void read(){
-    ifstream file("employers.txt");
-
-    vector <Employee> arr;
-
-    while(true)
+void get(map<string, string>& phonebook, string key) {
+    if (key[0] - 48 >= 0 && key[0] - 48 <= 9)
     {
-        string str;
-        getline(file,str);
-        if(str == ""){
-            break;
+        string tmp = phonebook[key];
+        while (true) {
+            if (tmp[tmp.length() - 1] - 48 >= 0 && tmp[tmp.length() - 1] - 48 <= 0) {
+                tmp.erase(tmp.length() - 1);
+            }
+            else {
+                break;
+            }
         }
-        stringstream tmp;
-        tmp << str;
-
-        Employee buff;
-        tmp >> buff.Name;
-        tmp >> buff.SecondName;
-        tmp >> buff.date;
-        tmp >> str;
-        buff.Payment = atoi(str.c_str());
-        arr.push_back(buff);
+        cout << tmp << endl;
     }
-    for(int i = 0; i < arr.size();i++)
-    {
-        cout << arr[i].Name << " " << arr[i].SecondName << " " << arr[i].date << " " << arr[i].Payment << endl;
-    }
+    else {
+        
+        map<string,string>::iterator it = phonebook.begin();
+        while(it != phonebook.end()) {
+            
+            string tmp = it->second;
+            if (tmp == key) {
+                cout << it-> first << " ";
+            }
+            it++;
 
+        } 
+        cout << endl;
+    }
 }
+
+
 
 
 void Task1(){
-    cout << "Enter command read/add\n";
-    string str;
-    cin >> str;
-    if(str == "add"){
-        add();
+   
+    map <string, string> phonebook;
+    while (true) {
+        cout << "Enter query\n";
+        string str;
+        getline(cin, str);
+        if (str[0] - 48 >= 0 && str[0] - 48 <= 9 && str.length() > 9)
+        {
+            add(phonebook, str.substr(0, 8), str.substr(9));
+        }
+        else {
+            get(phonebook, str);
+        }
     }
-    else if(str == "read"){
-        read();
-    }
-    else{
-        cout << "Incorrect\n";
-    }
+    cout << endl;
+
 }
 
