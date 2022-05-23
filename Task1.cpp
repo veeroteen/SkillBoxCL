@@ -1,61 +1,58 @@
-#include <vector>
 #include <iostream>
-#include <string>
 #include "Tasks.h"
-#include <map>
 using namespace std;
-void add(map<string,string>& phonebook,string key,string value) {
-    phonebook[key] = value;
-}
-void get(map<string, string>& phonebook, string key) {
-    if (key[0] - 48 >= 0 && key[0] - 48 <= 9)
-    {
-        string tmp = phonebook[key];
-        while (true) {
-            if (tmp[tmp.length() - 1] - 48 >= 0 && tmp[tmp.length() - 1] - 48 <= 0) {
-                tmp.erase(tmp.length() - 1);
-            }
-            else {
-                break;
-            }
-        }
-        cout << tmp << endl;
-    }
-    else {
-        
-        map<string,string>::iterator it = phonebook.begin();
-        while(it != phonebook.end()) {
-            
-            string tmp = it->second;
-            if (tmp == key) {
-                cout << it-> first << " ";
-            }
-            it++;
-
-        } 
-        cout << endl;
-    }
-}
-
-
-
+#define January 1
+#define February 2
+#define March 3
+#define April 4
+#define May 5
+#define June 6
+#define July 7
+#define August 8
+#define September 9
+#define October 10
+#define November 11
+#define December 12
 
 void Task1(){
-   
-    map <string, string> phonebook;
-    while (true) {
-        cout << "Enter query\n";
-        string str;
-        getline(cin, str);
-        if (str[0] - 48 >= 0 && str[0] - 48 <= 9 && str.length() > 9)
-        {
-            add(phonebook, str.substr(0, 8), str.substr(9));
-        }
-        else {
-            get(phonebook, str);
-        }
-    }
-    cout << endl;
-
+	cout << "Enter month number\n";
+	int a;
+	cin >> a;
+	switch (a)
+	{
+	case January:
+		cout << "January\n";
+		break;
+	case February:
+		cout << "February\n";
+		break;
+	case March:
+		cout << "March\n";
+		break;
+	case April:
+		cout << "April\n";
+		break;
+	case May:
+		cout << "May\n";
+		break;
+	case June:
+		cout << "June\n";
+		break;
+	case August:
+		cout << "August\n";
+		break;
+	case September:
+		cout << "September\n";
+		break;
+	case October:
+		cout << "October\n";
+		break;
+	case November:
+		cout << "November\n";
+		break;
+	case December:
+		cout << "December\n";
+		break;
+	}
 }
 
