@@ -1,18 +1,13 @@
 #include <iostream>
 #include "Tasks.h"
 using namespace std;
-#define January 1
-#define February 2
-#define March 3
-#define April 4
-#define May 5
-#define June 6
-#define July 7
-#define August 8
-#define September 9
-#define October 10
-#define November 11
-#define December 12
+#define Monday cout << "Monday\n";
+#define Tuesday cout << "Tuesday\n";
+#define Wednesday cout << "Wednesday\n";
+#define Thursday cout << "Thursday\n";
+#define Friday cout << "Friday\n";
+#define Saturday cout << "Saturday\n";
+#define Sunday cout << "Sunday\n";
 
 void Task1(){
 	cout << "Enter month number\n";
@@ -20,38 +15,26 @@ void Task1(){
 	cin >> a;
 	switch (a)
 	{
-	case January:
-		cout << "January\n";
+	case 1:
+		Monday;
 		break;
-	case February:
-		cout << "February\n";
+	case 2:
+		Tuesday;
 		break;
-	case March:
-		cout << "March\n";
+	case 3:
+		Wednesday;
 		break;
-	case April:
-		cout << "April\n";
+	case 4:
+		Thursday;
 		break;
-	case May:
-		cout << "May\n";
+	case 5:
+		Friday;
 		break;
-	case June:
-		cout << "June\n";
+	case 6:
+		Saturday;
 		break;
-	case August:
-		cout << "August\n";
-		break;
-	case September:
-		cout << "September\n";
-		break;
-	case October:
-		cout << "October\n";
-		break;
-	case November:
-		cout << "November\n";
-		break;
-	case December:
-		cout << "December\n";
+	case 7:
+		Sunday;
 		break;
 	}
 }
