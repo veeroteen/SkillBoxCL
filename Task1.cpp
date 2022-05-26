@@ -1,41 +1,61 @@
 #include <iostream>
 #include "Tasks.h"
+#include <ctime>
+#include <string>
+#include <vector>
 using namespace std;
-#define Monday cout << "Monday\n";
-#define Tuesday cout << "Tuesday\n";
-#define Wednesday cout << "Wednesday\n";
-#define Thursday cout << "Thursday\n";
-#define Friday cout << "Friday\n";
-#define Saturday cout << "Saturday\n";
-#define Sunday cout << "Sunday\n";
+struct Quest {
+	int64_t time;
+	string name;
+};
+
+
 
 void Task1(){
-	cout << "Enter month number\n";
-	int a;
-	cin >> a;
-	switch (a)
-	{
-	case 1:
-		Monday;
-		break;
-	case 2:
-		Tuesday;
-		break;
-	case 3:
-		Wednesday;
-		break;
-	case 4:
-		Thursday;
-		break;
-	case 5:
-		Friday;
-		break;
-	case 6:
-		Saturday;
-		break;
-	case 7:
-		Sunday;
-		break;
+
+	vector <Quest> arr;
+	int64_t timer = time(nullptr);
+	bool status = false;
+
+	while (true) {
+		cout << "Enter command\n";
+		string str;
+		cin >> str;
+		if (str == "begin") {
+			if (status) {
+				arr[arr.size() - 1].time = timer - time(nullptr);
+				status = false;
+			}
+			status = true;
+			timer = time(nullptr);
+			cout << "Enter quest name\n";
+			cin >> str;
+			arr.push_back(Quest{ 0,str });
+		}
+		else if(str == "end") {
+			arr[arr.size() - 1].time = time(nullptr) - timer;
+			status = false;
+		}
+		else if (str == "status") {
+			for (int i = 0; i < arr.size(); i++)
+			{
+				if (arr[i].time > 0) {
+					str = to_string(arr[i].time / 3600) + ':' +  to_string(arr[i].time / 3600 / 60);
+				}
+				else {
+					str = "";
+				}
+					
+				cout << arr[i].name << " " << str << endl;
+				
+			}
+		}
+		else if (str == "exit") {
+			break;
+		}
+
+
 	}
+	
 }
 
