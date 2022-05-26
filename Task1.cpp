@@ -37,7 +37,9 @@ void Task1(){
 			for (int i = 0; i < arr.size(); i++)
 			{
 				if (arr[i].time > 0) {
-					str = to_string(arr[i].time / 3600) + ':' +  to_string((arr[i].time % 3600 )/ 60);
+					str = to_string(arr[i].time / 3600) + ':' +
+            					to_string((arr[i].time % 3600)/ 60) + ':' +
+            					to_string(((arr[i].time % 3600)% 60)%30)
 				}
 				else {
 					str = "";
