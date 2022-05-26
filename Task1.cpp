@@ -39,7 +39,7 @@ void Task1(){
 				if (arr[i].time > 0) {
 					str = to_string(arr[i].time / 3600) + ':' +
             					to_string((arr[i].time % 3600)/ 60) + ':' +
-            					to_string(((arr[i].time % 3600)% 60)%30)
+            					to_string((arr[i].time % 3600)% 60);
 				}
 				else {
 					str = "";
