@@ -6,6 +6,7 @@
 #include <ctime>
 #include <string>
 #include <vector>
+#include <Windows.h>
 using namespace std;
 #define SPRING 0
 #define SUMMER 0
@@ -22,18 +23,16 @@ void Task3() {
 	seconds = local.tm_sec;
 	t = seconds + (min * 60);
 	time_t timerStart, timerEnd;
-	timerStart = time(nullptr);
-	timerEnd = time(nullptr);
 	int temp = 0;
-	while (t > timerEnd - timerStart) {
-		timerEnd = time(nullptr);
-		if (temp < timerEnd - timerStart) {
-			temp = timerEnd - timerStart;
-			local.tm_min = (t - temp) / 60;
-			local.tm_sec = (t - temp) % 60;
-			cout <<  put_time(&local, "%M:%S") << endl;
-		}
-	}
+	do {
+
+		
+		local.tm_min = (t - temp) / 60;
+		local.tm_sec = (t - temp) % 60;
+		cout <<  put_time(&local, "%M:%S") << endl;
+		t--;
+		Sleep(1000);
+	} while (t != 0);
 
 	cout << "DING! DING! DING!\n";
 }

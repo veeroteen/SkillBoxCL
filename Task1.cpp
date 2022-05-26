@@ -23,7 +23,7 @@ void Task1(){
 		cin >> str;
 		if (str == "begin") {
 			if (status) {
-				arr[arr.size() - 1].time = timer - time(nullptr);
+				arr[arr.size() - 1].time = time(nullptr) - timer;
 				status = false;
 			}
 			status = true;
@@ -40,7 +40,7 @@ void Task1(){
 			for (int i = 0; i < arr.size(); i++)
 			{
 				if (arr[i].time > 0) {
-					str = to_string(arr[i].time / 3600) + ':' +  to_string(arr[i].time / 3600 / 60);
+					str = to_string(arr[i].time / 3600) + ':' +  to_string((arr[i].time % 3600 )/ 60);
 				}
 				else {
 					str = "";
@@ -53,8 +53,6 @@ void Task1(){
 		else if (str == "exit") {
 			break;
 		}
-
-
 	}
 	
 }
