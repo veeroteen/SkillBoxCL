@@ -9,10 +9,7 @@ struct Quest {
 	string name;
 };
 
-
-
 void Task1(){
-
 	vector <Quest> arr;
 	int64_t timer = time(nullptr);
 	bool status = false;
