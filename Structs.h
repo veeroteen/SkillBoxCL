@@ -11,6 +11,9 @@ public:
 		}
 		return false;
 	}
+	Vector2i operator +(Vector2i local) {
+		return Vector2i{ this->x + local.x , this->y += local.y };
+	}
 	string get() {
 		return '[' + to_string(x) + ':' + to_string(y) + ']';
 	}
